@@ -3,6 +3,8 @@
 #include <chrono>
 #include "Declarations/Declarations.cpp"
 #include "Classes/Init.cpp"
+#include <Windows.h>
+#include <map>
 
 void Second::helloMessage()
 {
@@ -33,6 +35,35 @@ void Second::ReadSeconds(const Seconds &seconds)
     }
 }
 
+class NumBeeps
+{
+
+public:
+    NumBeeps(int a, int b)
+    {
+        this->a = a;
+        this->b = b;
+    }
+
+    std::map<int, int> B()
+    {
+        return std::map<int, int>{};
+    }
+
+private:
+    float a, b;
+};
+
+void setBeep()
+{
+    NumBeeps beep(0, 0);
+    beep.B().insert(75 * 10, 800);
+    for (auto s : beep.B())
+    {
+        Beep(s.first, s.second);
+    }
+};
+
 int main()
 {
 
@@ -52,6 +83,7 @@ int main()
                 std::thread th(Second::helloMessage);
                 th.join();
 
+                setBeep();
                 Second::ReadSeconds(Second::Seconds::Hour);
                 std::cout << "Ending..." << std::endl;
             }
